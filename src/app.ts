@@ -1,10 +1,6 @@
-import * as dotenv from "dotenv";
-dotenv.config();
-
-import express, { Request, Response, NextFunction } from 'express';
-import sequelize from './config/sequelize.config';
-import userRoutes from './routes/userRoutes';
-import cors from "cors";
+import express, { Request, Response, NextFunction } from 'express'
+import sequelize from './models'
+import cors from "cors"
 
 // // 각 router
 // import movieRouter from "./routes/movie";
@@ -15,7 +11,7 @@ import cors from "cors";
 import { errorHandler } from "./handler";
 
 const app = express();
-const port = 9999;
+const port: number = 9999;
 
 // app.get('/', (req: Request, res: Response, next: NextFunction) => {
 //     res.send('welcome!');
@@ -31,10 +27,13 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Welcome!');
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
     console.log(`
         ###########################################
-            🛡️Server listening on port: ${port}🛡️
+            🛡️ Server listening on port: ${port}🛡️
         ###########################################
-    `);
+    `)
+    await sequelize
+        .authenticate()
+        .then(async)
 });
